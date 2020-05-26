@@ -22,7 +22,7 @@ class _TabBarContainerWidgetState extends State<TabBarContainerWidget> {
   /// Widget List associated for tab bar items
   static List<Widget> _widgetOptions = <Widget>[
     SpaceshipComponentsWidget(),
-    RepairStationsWidget()
+    ProvidedRepairStationWidget()
   ];
 
   /*
@@ -81,13 +81,25 @@ class _TabBarContainerWidgetState extends State<TabBarContainerWidget> {
   Widget build(BuildContext context) {
     return Scaffold(
       extendBody: true,
-      body: ChangeNotifierProvider<RepairStationsViewModel>(
-        create: (BuildContext context) { return RepairStationsViewModel(); },
-        child: Center(
+      body: Container(
           child: _widgetOptions.elementAt(_selectedIndex),
         ),
-      ),
       bottomNavigationBar: _bottomNavigationBar(),
+    );
+  }
+}
+
+class ProvidedRepairStationWidget extends StatefulWidget {
+  @override
+  _ProvidedRepairStationWidgetState createState() => _ProvidedRepairStationWidgetState();
+}
+
+class _ProvidedRepairStationWidgetState extends State<ProvidedRepairStationWidget> {
+  @override
+  Widget build(BuildContext context) {
+    return ChangeNotifierProvider<RepairStationsViewModel>(
+        create: (BuildContext context) { return RepairStationsViewModel(); },
+        child: RepairStationsWidget()
     );
   }
 }

@@ -1,216 +1,143 @@
+import 'package:SpaceFix/AppCustomization/AppConfigurationCatalog.dart';
+import 'package:SpaceFix/AppCustomization/StringCatalog.dart';
+import 'package:SpaceFix/SpaceshipComponents/SpaceshipComponentsDateWidget.dart';
+import 'package:SpaceFix/SpaceshipComponents/SpaceshipComponentsListViewWidget.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
+import 'package:SpaceFix/SpaceshipComponents/SpaceshipComponentsViewModels/SpaceshipComponentsListViewModel.dart';
+import 'package:provider/provider.dart';
 
 class SpaceshipComponentsWidget extends StatefulWidget {
   @override
-  _SpaceshipComponentsWidgetState createState() => _SpaceshipComponentsWidgetState();
+  _SpaceshipComponentsWidgetState createState() =>
+      _SpaceshipComponentsWidgetState();
 }
 
 class _SpaceshipComponentsWidgetState extends State<SpaceshipComponentsWidget> {
-
-  List<String> components = [];
-  String _date = "Not set";
+  // Private Properties
 
   int _currentStep = 0;
 
-  List<Step> _mySteps() {
-    List<Step> _steps = [
-      Step(
-        title: Text('Step 1'),
-        content: TextField(),
-        isActive: _currentStep >= 0,
-      ),
-      Step(
-        title: Text('Step 2'),
-        content: TextField(),
-        isActive: _currentStep >= 1,
-      ),
-    ];
-    return _steps;
+  BorderRadius _tabBarBorderRadius = BorderRadius.vertical(bottom: Radius.circular(24));
+  TextStyle instructionTextStyle = TextStyle(
+    fontSize: FontSizes.mediumFontSize,
+    fontWeight: FontWeight.bold,
+      color: AppColors.colouredFontColor
+  );
+
+  // Private Methods
+
+  AppBar _buildCustomAppBar() {
+    return AppBar(
+        shape: RoundedRectangleBorder(borderRadius: _tabBarBorderRadius),
+        title: Text(
+          SpaceshipComponentsStringCatalog.componentsWidgetTitle,
+          style: TextStyle(
+            color: AppColors.titleColor,
+          ),
+        ),
+        backgroundColor: AppColors.mainComponentColor);
   }
 
-  Widget _typeStep() {
-
-    RaisedButton datebutton = RaisedButton(
-      shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(5.0)),
-      elevation: 4.0,
-      onPressed: () {
-        DatePicker.showDatePicker(context,
-            theme: DatePickerTheme(
-              containerHeight: 210.0,
-            ),
-            showTitleActions: true,
-            minTime: DateTime(2000, 1, 1),
-            maxTime: DateTime(2022, 12, 31), onConfirm: (date) {
-              print('confirm $date');
-              _date = '${date.year} - ${date.month} - ${date.day}';
-              setState(() {});
-            }, currentTime: DateTime.now(), locale: LocaleType.en);
-      },
-      child: Container(
-        alignment: Alignment.center,
-        height: 50.0,
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: <Widget>[
-            Row(
-              children: <Widget>[
-                Container(
-                  child: Row(
-                    children: <Widget>[
-                      Icon(
-                        Icons.date_range,
-                        size: 18.0,
-                        color: Colors.teal,
-                      ),
-                      Text(
-                        " $_date",
-                        style: TextStyle(
-                            color: Colors.teal,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 18.0),
-                      ),
-                    ],
-                  ),
-                )
-              ],
-            ),
-            Text(
-              " Change",
-              style: TextStyle(
-                  color: Colors.teal,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 18.0),
-            ),
-          ],
-        ),
-      ),
-      color: Colors.white,
+  Widget _buildCustomStepper() {
+    EdgeInsets marginInsets = EdgeInsets.only(
+        top: GeneralConstants.mediumEdgeInset,
+        bottom: GeneralConstants.mediumEdgeInset
     );
 
-    final myController = TextEditingController();
-    TextField componentTextField = TextField(
-      decoration: const InputDecoration(helperText: "Enter App ID"),
-      style: Theme.of(context).textTheme.body1,
-      controller: myController,
-    );
     List<Step> _steps = [
       Step(
-        title: Text("First Step"),
-        content: Container(
-          child: Column(
-            children: <Widget>[
-              Text("Some basic instructions"),
-              Row(
-                children: <Widget>[
-                   Flexible(
-                    child:  componentTextField,
-                  ),
-                  FlatButton(
-                    child: Text(
-                      "Add"
+          isActive: true,
+          title: Text(SpaceshipComponentsStringCatalog.step1),
+          content: Container(
+              child: Column(
+                  children: <Widget>[
+                    Text(
+                      SpaceshipComponentsStringCatalog.step1Instructions,
+                      style: instructionTextStyle,
                     ),
-                    onPressed: () {
-                      setState(() {
-                        components.add(myController.text);
-                      });
-                    },
-                  )
-                ],
-              ),
-              _componentList(),
-            ],
+                    Container(
+                      margin: marginInsets,
+                        child: ProvidedSpaceshipComponentsTableViewWidget()
+                    )
+                  ]
+              )
           )
-        )
       ),
       Step(
-        title: Text("Second"),
+        isActive: true,
+        title: Text(SpaceshipComponentsStringCatalog.step2),
         content: Container(
           child: Column(
             children: <Widget>[
-              Text("Some basic instructions)"),
-              datebutton
+              Text(
+                SpaceshipComponentsStringCatalog.step2Instructions,
+                style: instructionTextStyle,
+              ),
+              Container(
+                margin: marginInsets,
+                  child: SpaceshipComponentsDateWidget()
+              )
             ],
           ),
         ),
-
       ),
     ];
-    return Container(
-      margin: EdgeInsets.only(top: 10),
-      color: Colors.transparent,
-      child: Stepper(
-        type: StepperType.horizontal,
-        currentStep: _currentStep,
-        steps: _steps,
-        onStepTapped: (step) {
-          setState(() {
-            _currentStep = step;
-          });
-        },
-        onStepContinue: () {
-          setState(() {
-          if(_currentStep < _steps.length - 1) {
-            _currentStep += 1;
+
+    return Stepper(
+      type: StepperType.vertical,
+      currentStep: _currentStep,
+      steps: _steps,
+      onStepTapped: (step) {
+        setState(() {
+          _currentStep = step;
+        });
+      },
+      onStepContinue: () {
+        setState(() {
+          if (_currentStep < _steps.length - 1) {
+            _currentStep++;
           } else {
             _currentStep = 0;
           }
-          });
-        },
-        onStepCancel: () {
-          setState(() {
-            if(_currentStep > 0) {
-              _currentStep = _currentStep -1;
-            } else {
-              _currentStep = 0;
-            }
-          });
-        },
-      ),
+        });
+      },
+      onStepCancel: () {
+        setState(() {
+          if (_currentStep > 0) {
+            _currentStep--;
+          } else {
+            _currentStep = 0;
+          }
+        });
+      },
     );
-    }
-
-    Widget buildComponentCard(BuildContext context, int index) {
-      return Container(
-        height: 50,
-        child: Card(
-          child: Container(
-            child: Column(
-              children: <Widget>[
-                Text(index.toString()),
-                Text(components[index])
-              ],
-            ),
-          ),
-        ),
-      );
-    }
-
-    Widget _componentList() {
-      return ListView.builder(
-          itemCount: components.length,
-          shrinkWrap: true,
-          itemBuilder: (BuildContext context, int index) => buildComponentCard(context, index)
-      );
-    }
-    @override
-    Widget build(BuildContext context) {
-      return Scaffold(
-          appBar: AppBar(
-            title: Text(
-              "Title Please replace1",
-              style: TextStyle(
-                color: Colors.white,
-              ),
-            ),
-            backgroundColor: Colors.black,
-          ),
-          backgroundColor: Colors.green,
-
-          body: Container(
-            child: _typeStep(),
-      )
-      );
-    }
   }
+
+  // Build
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+        appBar: _buildCustomAppBar(),
+        body: Container(
+          child: _buildCustomStepper(),
+        )
+    );
+  }
+
+}
+
+class ProvidedSpaceshipComponentsTableViewWidget extends StatefulWidget {
+  @override
+  _ProvidedSpaceshipComponentsTableViewWidgetState createState() => _ProvidedSpaceshipComponentsTableViewWidgetState();
+}
+
+class _ProvidedSpaceshipComponentsTableViewWidgetState extends State<ProvidedSpaceshipComponentsTableViewWidget> {
+  @override
+  Widget build(BuildContext context) {
+    return ChangeNotifierProvider<SpaceshipComponentsListViewModel>(
+        create: (BuildContext context) { return SpaceshipComponentsListViewModel(); },
+        child: SpaceshipComponentsListViewWidget()
+    );
+  }
+}

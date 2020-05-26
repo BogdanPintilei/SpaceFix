@@ -47,7 +47,7 @@ class RepairStationsViewModel
       case SortType.time:
         {
           _repairStationsList.sort((a, b) =>
-              a.averageRepairDuration.compareTo(b.averageRepairDuration));
+              b.averageRepairDuration.compareTo(a.averageRepairDuration));
         }
         break;
       case SortType.initial:

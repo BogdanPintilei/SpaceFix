@@ -25,7 +25,7 @@ class _RepairStationsSearchWidgetState extends State<RepairStationsSearchWidget>
       bottomLeft: Radius.circular(GeneralConstants.mediumBorderRadius),
       bottomRight: Radius.circular(GeneralConstants.mediumBorderRadius));
 
-  TextStyle _searchTextSytle = TextStyle(color: AppColors.titleFontColor);
+  TextStyle _searchTextSytle = TextStyle(color: AppColors.titleColor);
 
   // Private methods
 

@@ -59,7 +59,7 @@ class _RepairStationTableviewWidgetState extends State<RepairStationTableviewWid
                   Text(
                     station.name,
                     style: TextStyle(
-                      fontSize: FontSizes.largeFontSize,
+                      fontSize: FontSizes.hugeFontSize,
                       fontWeight: FontWeight.bold,
                     ),
                   ),

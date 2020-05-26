@@ -1,3 +1,4 @@
+import 'package:SpaceFix/AppCustomization/AppConfigurationCatalog.dart';
 import 'package:flutter/material.dart';
 import 'package:SpaceFix/SpaceFixMainContainer/TabBarContainer.dart';
 
@@ -7,6 +8,9 @@ class SpaceFixApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
+      theme: ThemeData(
+        primarySwatch: AppColors.cellBackgroundColor,
+      ),
       home: TabBarContainerWidget(),
     );
   }

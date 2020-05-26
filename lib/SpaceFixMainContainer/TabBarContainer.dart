@@ -1,10 +1,8 @@
-import 'package:SpaceFix/RepairStations/RepairStationsView/RepairStationsWidget.dart';
-import 'package:SpaceFix/RepairStations/RepairStationsViewModel/RepairStationsViewModel.dart';
 import 'package:flutter/material.dart';
-import 'package:SpaceFix/SpaceshipComponents/SpaceshipComponentsWidget.dart';
-import 'package:SpaceFix/AppCustomization/StringCatalog.dart';
-import 'package:SpaceFix/AppCustomization/AppConfigurationCatalog.dart';
-import 'package:provider/provider.dart';
+import 'package:SpaceFix/AppCatalogs/StringCatalog.dart';
+import 'package:SpaceFix/AppCatalogs/AppConfigurationCatalog.dart';
+import 'package:SpaceFix/RepairStations/RepairStationsView/RepairStationsWidget.dart';
+import 'package:SpaceFix/SpaceshipComponents/SpaceshipComponentsView/SpaceshipComponentsWidget.dart';
 
 class TabBarContainerWidget extends StatefulWidget {
   @override
@@ -12,45 +10,37 @@ class TabBarContainerWidget extends StatefulWidget {
 }
 
 class _TabBarContainerWidgetState extends State<TabBarContainerWidget> {
-  /*
-   TabBar Items
-   */
 
-  /// Current Selected Index
+   // Private properties
+
   int _selectedIndex = 0;
 
-  /// Widget List associated for tab bar items
   static List<Widget> _widgetOptions = <Widget>[
     SpaceshipComponentsWidget(),
     ProvidedRepairStationWidget()
   ];
 
-  /*
-  Private Methods
-   */
+  BorderRadius _tabBarBorderRadius = BorderRadius.only(
+      topRight: Radius.circular(GeneralConstants.mediumBorderRadius),
+      topLeft: Radius.circular(GeneralConstants.mediumBorderRadius));
 
-  /// Action for selected TabBar Item
-  void _onTabBarItemTapped(int index) {
+  // Private Methods
+
+  void _didSelectTabBarItem(int index) {
     setState(() {
       _selectedIndex = index;
     });
   }
 
-  /*
-   Custom Widget Components
-   */
+  // Custom Widget Components
 
-  BorderRadius _tabBarBorderRadius = BorderRadius.only(
-      topRight: Radius.circular(24), topLeft: Radius.circular(24));
-
-  /// Widget Constructor for the BottomNavigationBar
   Widget _bottomNavigationBar() => Container(
         decoration: BoxDecoration(borderRadius: _tabBarBorderRadius),
         child: ClipRRect(
           borderRadius: _tabBarBorderRadius,
           child: BottomNavigationBar(
             // UI Customization
-            backgroundColor: Colors.black,
+            backgroundColor: AppColors.mainComponentColor,
             selectedItemColor: AppColors.selectedTabBarItemColor,
             unselectedItemColor: AppColors.tabBarItemColor,
 
@@ -68,14 +58,13 @@ class _TabBarContainerWidgetState extends State<TabBarContainerWidget> {
             currentIndex: _selectedIndex,
 
             // Tab Bar Actions
-            onTap: _onTabBarItemTapped,
+            onTap: _didSelectTabBarItem,
+            
           ),
         ),
       );
 
-  /*
-  * Build
-  */
+  // Build
 
   @override
   Widget build(BuildContext context) {
@@ -85,21 +74,6 @@ class _TabBarContainerWidgetState extends State<TabBarContainerWidget> {
           child: _widgetOptions.elementAt(_selectedIndex),
         ),
       bottomNavigationBar: _bottomNavigationBar(),
-    );
-  }
-}
-
-class ProvidedRepairStationWidget extends StatefulWidget {
-  @override
-  _ProvidedRepairStationWidgetState createState() => _ProvidedRepairStationWidgetState();
-}
-
-class _ProvidedRepairStationWidgetState extends State<ProvidedRepairStationWidget> {
-  @override
-  Widget build(BuildContext context) {
-    return ChangeNotifierProvider<RepairStationsViewModel>(
-        create: (BuildContext context) { return RepairStationsViewModel(); },
-        child: RepairStationsWidget()
     );
   }
 }

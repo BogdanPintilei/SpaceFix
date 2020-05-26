@@ -1,13 +1,29 @@
+import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:SpaceFix/RepairStations/RepairStationsView/RepairStationsSearchWidget.dart';
 import 'package:SpaceFix/RepairStations/RepairStationsViewModel/RepairStationsViewModelInterface.dart';
-import 'package:SpaceFix/AppCustomization/AppConfigurationCatalog.dart';
-import 'package:SpaceFix/AppCustomization/StringCatalog.dart';
+import 'package:SpaceFix/AppCatalogs/AppConfigurationCatalog.dart';
+import 'package:SpaceFix/AppCatalogs/StringCatalog.dart';
 import 'package:SpaceFix/RepairStations/RepairStationsViewModel/RepairStationsViewModel.dart';
-import 'package:provider/provider.dart';
-import 'RepairStationsTableViewWidget.dart';
-import 'package:flutter/material.dart';
+import 'package:SpaceFix/RepairStations/RepairStationsView/RepairStationsTableViewWidget.dart';
 
-/// Parent RepairStation Widget
+/// RepairStationWidget with conformance to ChangeNotifierProvider
+class ProvidedRepairStationWidget extends StatefulWidget {
+  @override
+  _ProvidedRepairStationWidgetState createState() => _ProvidedRepairStationWidgetState();
+}
+
+class _ProvidedRepairStationWidgetState extends State<ProvidedRepairStationWidget> {
+  @override
+  Widget build(BuildContext context) {
+    return ChangeNotifierProvider<RepairStationsViewModel>(
+        create: (BuildContext context) { return RepairStationsViewModel(); },
+        child: RepairStationsWidget()
+    );
+  }
+}
+
+/// RepairStationWidget
 class RepairStationsWidget extends StatefulWidget {
   @override
   _RepairStationsWidgetState createState() => _RepairStationsWidgetState();
@@ -21,7 +37,6 @@ class _RepairStationsWidgetState extends State<RepairStationsWidget> {
   }
 }
 
-/// Child RepairStationContentWidget
 class RepairStationsContentWidget extends StatefulWidget {
   RepairStationViewModelInterface viewModel;
   RepairStationsContentWidget(this.viewModel);
@@ -95,7 +110,7 @@ class _RepairStationsContentWidgetState
         child: Column(children: <Widget>[
           RepairStationsSearchWidget(this.widget.viewModel),
           Expanded(
-            child: RepairStationTableviewWidget(this.widget.viewModel),
+            child: RepairStationListViewWidget(this.widget.viewModel),
           ),
         ]),
       ),

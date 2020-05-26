@@ -22,16 +22,15 @@
 
 An intergalactic service used for getting the much needed help when having problems with your spaceship 🚀
 
-## 🍏 iOS Demo
+## 🍏 *iOS Demo*
 
 ![Alt Text](https://i.giphy.com/media/W2FM9IrsKcUYAscSBd/giphy.gif)
 
-Gif URL: https://i.giphy.com/media/W2FM9IrsKcUYAscSBd/giphy.gif
-Video Demo URL: https://youtu.be/W_OuqpLgmAw
+<p> Gif URL: https://i.giphy.com/media/W2FM9IrsKcUYAscSBd/giphy.gif </p>
+<p> Video Demo URL: https://youtu.be/W_OuqpLgmAw </p>
 
-## 🤖 Android Demo
+## 🤖 *Android Demo*
 
 ![Alt Text](https://i.giphy.com/media/jrbdLPm76WiWCY7133/giphy.gif)
 
-Video Demo URL: https://www.youtube.com/watch?v=wvsDwsTNldA
-
+<p> Video Demo URL: https://www.youtube.com/watch?v=wvsDwsTNldA </p>

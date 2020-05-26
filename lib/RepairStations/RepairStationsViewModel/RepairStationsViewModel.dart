@@ -4,8 +4,9 @@ import 'package:SpaceFix/Repository/SpaceFixRepository.dart';
 import 'RepairStationsViewModelInterface.dart';
 
 /// Concrete implementation for RepairStationsViewModel
-class RepairStationsViewModel with ChangeNotifier implements RepairStationViewModelInterface  {
-
+class RepairStationsViewModel
+    with ChangeNotifier
+    implements RepairStationViewModelInterface {
   // Private properties
 
   List<RepairStation> _repairStationsList = List<RepairStation>();
@@ -26,26 +27,27 @@ class RepairStationsViewModel with ChangeNotifier implements RepairStationViewMo
   @override
   RepairStation repairStationForIndex(int index) {
     if (_repairStationsList.asMap().containsKey(index)) {
-      return  _repairStationsList[index];
+      return _repairStationsList[index];
     }
   }
 
   @override
   void sortListBy(SortType sortType) {
-    switch(sortType) {
+    switch (sortType) {
       case SortType.price:
         {
-          _repairStationsList.sort((a,b) => a.price.compareTo(b.price));
+          _repairStationsList.sort((a, b) => a.price.compareTo(b.price));
         }
         break;
       case SortType.rating:
         {
-          _repairStationsList.sort((a,b) => a.rating.compareTo(b.rating));
+          _repairStationsList.sort((a, b) => a.rating.compareTo(b.rating));
         }
         break;
       case SortType.time:
         {
-          _repairStationsList.sort((a,b) => a.averageRepairDuration.compareTo(b.averageRepairDuration));
+          _repairStationsList.sort((a, b) =>
+              a.averageRepairDuration.compareTo(b.averageRepairDuration));
         }
         break;
       case SortType.initial:
@@ -61,17 +63,17 @@ class RepairStationsViewModel with ChangeNotifier implements RepairStationViewMo
   void searchListForQuery(String query) {
     List<RepairStation> dummySearchList = List<RepairStation>();
     dummySearchList.addAll(_repairStationsList);
-    if(query.isNotEmpty) {
+    if (query.isNotEmpty) {
       List<RepairStation> dummyListData = List<RepairStation>();
       dummySearchList.forEach((item) {
-        if(item.name.toLowerCase().contains(query.toLowerCase().trim())) {
+        if (item.name.toLowerCase().contains(query.toLowerCase().trim())) {
           dummyListData.add(item);
         }
       });
       _repairStationsList.clear();
       _repairStationsList.addAll(dummyListData);
     } else {
-        _resetList();
+      _resetList();
     }
     notifyListeners();
   }
@@ -89,5 +91,4 @@ class RepairStationsViewModel with ChangeNotifier implements RepairStationViewMo
     _repairStationsList.clear();
     _repairStationsList.addAll(_initialRepairStationList);
   }
-
 }

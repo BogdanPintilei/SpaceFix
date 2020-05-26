@@ -1,10 +1,8 @@
-import 'package:SpaceFix/AppCustomization/AppConfigurationCatalog.dart';
-import 'package:SpaceFix/AppCustomization/StringCatalog.dart';
-import 'package:SpaceFix/SpaceshipComponents/SpaceshipComponentsDateWidget.dart';
-import 'package:SpaceFix/SpaceshipComponents/SpaceshipComponentsListViewWidget.dart';
 import 'package:flutter/material.dart';
-import 'package:SpaceFix/SpaceshipComponents/SpaceshipComponentsViewModels/SpaceshipComponentsListViewModel.dart';
-import 'package:provider/provider.dart';
+import 'package:SpaceFix/AppCatalogs/AppConfigurationCatalog.dart';
+import 'package:SpaceFix/AppCatalogs/StringCatalog.dart';
+import 'SpaceshipComponentsDateWidget.dart';
+import 'SpaceshipComponentsListViewWidget.dart';
 
 class SpaceshipComponentsWidget extends StatefulWidget {
   @override
@@ -17,12 +15,12 @@ class _SpaceshipComponentsWidgetState extends State<SpaceshipComponentsWidget> {
 
   int _currentStep = 0;
 
-  BorderRadius _tabBarBorderRadius = BorderRadius.vertical(bottom: Radius.circular(24));
+  BorderRadius _tabBarBorderRadius =
+      BorderRadius.vertical(bottom: Radius.circular(GeneralConstants.mediumBorderRadius));
   TextStyle instructionTextStyle = TextStyle(
-    fontSize: FontSizes.mediumFontSize,
-    fontWeight: FontWeight.bold,
-      color: AppColors.colouredFontColor
-  );
+      fontSize: FontSizes.mediumFontSize,
+      fontWeight: FontWeight.bold,
+      color: AppColors.colouredFontColor);
 
   // Private Methods
 
@@ -41,28 +39,22 @@ class _SpaceshipComponentsWidgetState extends State<SpaceshipComponentsWidget> {
   Widget _buildCustomStepper() {
     EdgeInsets marginInsets = EdgeInsets.only(
         top: GeneralConstants.mediumEdgeInset,
-        bottom: GeneralConstants.mediumEdgeInset
-    );
+        bottom: GeneralConstants.mediumEdgeInset);
 
     List<Step> _steps = [
       Step(
           isActive: true,
           title: Text(SpaceshipComponentsStringCatalog.step1),
           content: Container(
-              child: Column(
-                  children: <Widget>[
-                    Text(
-                      SpaceshipComponentsStringCatalog.step1Instructions,
-                      style: instructionTextStyle,
-                    ),
-                    Container(
-                      margin: marginInsets,
-                        child: ProvidedSpaceshipComponentsTableViewWidget()
-                    )
-                  ]
-              )
-          )
-      ),
+              child: Column(children: <Widget>[
+            Text(
+              SpaceshipComponentsStringCatalog.step1Instructions,
+              style: instructionTextStyle,
+            ),
+            Container(
+                margin: marginInsets,
+                child: ProvidedSpaceshipComponentsTableViewWidget())
+          ]))),
       Step(
         isActive: true,
         title: Text(SpaceshipComponentsStringCatalog.step2),
@@ -74,9 +66,7 @@ class _SpaceshipComponentsWidgetState extends State<SpaceshipComponentsWidget> {
                 style: instructionTextStyle,
               ),
               Container(
-                margin: marginInsets,
-                  child: SpaceshipComponentsDateWidget()
-              )
+                  margin: marginInsets, child: SpaceshipComponentsDateWidget())
             ],
           ),
         ),
@@ -121,23 +111,6 @@ class _SpaceshipComponentsWidgetState extends State<SpaceshipComponentsWidget> {
         appBar: _buildCustomAppBar(),
         body: Container(
           child: _buildCustomStepper(),
-        )
-    );
-  }
-
-}
-
-class ProvidedSpaceshipComponentsTableViewWidget extends StatefulWidget {
-  @override
-  _ProvidedSpaceshipComponentsTableViewWidgetState createState() => _ProvidedSpaceshipComponentsTableViewWidgetState();
-}
-
-class _ProvidedSpaceshipComponentsTableViewWidgetState extends State<ProvidedSpaceshipComponentsTableViewWidget> {
-  @override
-  Widget build(BuildContext context) {
-    return ChangeNotifierProvider<SpaceshipComponentsListViewModel>(
-        create: (BuildContext context) { return SpaceshipComponentsListViewModel(); },
-        child: SpaceshipComponentsListViewWidget()
-    );
+        ));
   }
 }

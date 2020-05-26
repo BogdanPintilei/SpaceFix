@@ -1,16 +1,16 @@
-import 'package:SpaceFix/AppCustomization/AppConfigurationCatalog.dart';
-import 'package:SpaceFix/AppCustomization/StringCatalog.dart';
-import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:SpaceFix/AppCatalogs/AppConfigurationCatalog.dart';
+import 'package:SpaceFix/AppCatalogs/StringCatalog.dart';
+import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 
 class SpaceshipComponentsDateWidget extends StatefulWidget {
-
   @override
-  _SpaceshipComponentsDateWidgetState createState() => _SpaceshipComponentsDateWidgetState();
+  _SpaceshipComponentsDateWidgetState createState() =>
+      _SpaceshipComponentsDateWidgetState();
 }
 
-class _SpaceshipComponentsDateWidgetState extends State<SpaceshipComponentsDateWidget> {
-
+class _SpaceshipComponentsDateWidgetState
+    extends State<SpaceshipComponentsDateWidget> {
   // Private Properties
 
   String _date = SpaceshipComponentsStringCatalog.emptyDate;
@@ -18,35 +18,32 @@ class _SpaceshipComponentsDateWidgetState extends State<SpaceshipComponentsDateW
   // Private Methods
 
   void _showDatePicker() {
-    DatePicker.showDatePicker(context,
-        theme: DatePickerTheme(
+    DatePicker.showDatePicker(
+      context,
+      theme: DatePickerTheme(
           containerHeight: GeneralConstants.datePickerHeight,
           headerColor: AppColors.mainComponentColor,
           itemStyle: TextStyle(color: AppColors.mainComponentColor),
           doneStyle: TextStyle(
-              color: AppColors.titleColor,
-              fontWeight: FontWeight.bold
-          ),
-          cancelStyle: TextStyle(color: AppColors.titleColor)
-        ),
-        showTitleActions: true,
-        minTime: DateTime(1950, 1, 1),
-        maxTime: DateTime(2050, 12, 31),
-        currentTime: DateTime.now(),
-        locale: LocaleType.en,
-        onConfirm: (date) {
-          _date = '${date.year} - ${date.month} - ${date.day}';
-          setState(() {});
-        },
+              color: AppColors.titleColor, fontWeight: FontWeight.bold),
+          cancelStyle: TextStyle(color: AppColors.titleColor)),
+      showTitleActions: true,
+      minTime: DateTime(1950, 1, 1),
+      maxTime: DateTime(2050, 12, 31),
+      currentTime: DateTime.now(),
+      locale: LocaleType.en,
+      onConfirm: (date) {
+        _date = '${date.year} - ${date.month} - ${date.day}';
+        setState(() {});
+      },
     );
   }
-  
+
   RaisedButton _buildDateButton() {
     TextStyle _dateButtonTextStyle = TextStyle(
         color: AppColors.titleColor,
         fontWeight: FontWeight.bold,
-        fontSize: FontSizes.largeFontSize
-    );
+        fontSize: FontSizes.largeFontSize);
 
     return RaisedButton(
       onPressed: () {
@@ -54,8 +51,8 @@ class _SpaceshipComponentsDateWidgetState extends State<SpaceshipComponentsDateW
       },
       color: AppColors.mainComponentColor,
       shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(GeneralConstants.smallBorderRadius)
-      ),
+          borderRadius:
+              BorderRadius.circular(GeneralConstants.smallBorderRadius)),
       child: Container(
         height: GeneralConstants.dateButtonHeight,
         child: Row(
@@ -88,7 +85,6 @@ class _SpaceshipComponentsDateWidgetState extends State<SpaceshipComponentsDateW
 
   @override
   Widget build(BuildContext context) {
-    return  _buildDateButton();
+    return _buildDateButton();
   }
-
 }

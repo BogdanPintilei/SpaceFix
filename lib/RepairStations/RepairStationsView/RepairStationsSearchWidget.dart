@@ -1,23 +1,24 @@
-import 'package:SpaceFix/AppCustomization/AppConfigurationCatalog.dart';
-import 'package:SpaceFix/AppCustomization/StringCatalog.dart';
-import 'package:SpaceFix/RepairStations/RepairStationsViewModel/RepairStationsViewModelInterface.dart';
 import 'package:flutter/material.dart';
+import 'package:SpaceFix/AppCatalogs/AppConfigurationCatalog.dart';
+import 'package:SpaceFix/AppCatalogs/StringCatalog.dart';
+import 'package:SpaceFix/RepairStations/RepairStationsViewModel/RepairStationsViewModelInterface.dart';
 
 class RepairStationsSearchWidget extends StatefulWidget {
-  RepairStationViewModelInterface viewModel;
+  final RepairStationViewModelInterface viewModel;
   RepairStationsSearchWidget(this.viewModel);
   @override
-  _RepairStationsSearchWidgetState createState() => _RepairStationsSearchWidgetState();
+  _RepairStationsSearchWidgetState createState() =>
+      _RepairStationsSearchWidgetState();
 }
 
-class _RepairStationsSearchWidgetState extends State<RepairStationsSearchWidget> {
-
+class _RepairStationsSearchWidgetState
+    extends State<RepairStationsSearchWidget> {
   // Private properties
 
-  TextEditingController _editingController = TextEditingController();
+  TextEditingController _textFieldController = TextEditingController();
 
   OutlineInputBorder _customBorder = OutlineInputBorder(
-    borderSide: BorderSide(color: Colors.white),
+    borderSide: BorderSide(color: AppColors.titleColor),
     borderRadius: BorderRadius.circular(GeneralConstants.mediumBorderRadius),
   );
 
@@ -47,7 +48,7 @@ class _RepairStationsSearchWidgetState extends State<RepairStationsSearchWidget>
             focusedBorder: _customBorder,
             border: _customBorder,
           ),
-          controller: _editingController,
+          controller: _textFieldController,
           onChanged: (value) {
             this.widget.viewModel.searchListForQuery(value);
           },
@@ -56,10 +57,15 @@ class _RepairStationsSearchWidgetState extends State<RepairStationsSearchWidget>
     );
   }
 
+  @override
+  void dispose() {
+    super.dispose();
+    _textFieldController.dispose();
+  }
   // Build
+
   @override
   Widget build(BuildContext context) {
     return _buildSearchSection(context);
   }
-
 }

@@ -34,4 +34,3 @@ An intergalactic service used for getting the much needed help when having probl
 ![Alt Text](https://i.giphy.com/media/jrbdLPm76WiWCY7133/giphy.gif)
 
 <p> Video Demo URL: https://www.youtube.com/watch?v=wvsDwsTNldA </p>
-

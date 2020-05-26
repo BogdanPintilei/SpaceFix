@@ -1,16 +1,10 @@
 import 'package:SpaceFix/Models/RepairStation.dart';
 
 /// Type Used to represent sorting options for RepairStations Widget
-enum SortType {
-  price,
-  time,
-  rating,
-  initial
-}
+enum SortType { price, time, rating, initial }
 
-/// Abstract Type responsible for RepairStation duties
+/// Abstract Type responsible for RepairStationWidget duties
 abstract class RepairStationViewModelInterface {
-
   /// Event that represent that view is ready for presentation logic
   void viewWasLoaded();
 
@@ -25,5 +19,4 @@ abstract class RepairStationViewModelInterface {
 
   /// Method which returns a station from the Repair Stations list for a given index
   RepairStation repairStationForIndex(int index);
-
 }

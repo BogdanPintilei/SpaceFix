@@ -1,9 +1,27 @@
-import 'package:SpaceFix/AppCustomization/AppConfigurationCatalog.dart';
-import 'package:SpaceFix/AppCustomization/StringCatalog.dart';
-import 'package:SpaceFix/SpaceshipComponents/SpaceshipComponentsViewModels/SpaceshipComponentsListViewModel.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:SpaceFix/AppCatalogs/AppConfigurationCatalog.dart';
+import 'package:SpaceFix/AppCatalogs/StringCatalog.dart';
+import 'package:SpaceFix/SpaceshipComponents/SpaceshipComponentsViewModels/SpaceshipComponentsListViewModel.dart';
+import 'package:SpaceFix/SpaceshipComponents/SpaceshipComponentsViewModels/SpaceshipComponentsListViewModelInterface.dart';
 
+/// Provided SpaceshipComponentsTableViewWidget
+class ProvidedSpaceshipComponentsTableViewWidget extends StatefulWidget {
+  @override
+  _ProvidedSpaceshipComponentsTableViewWidgetState createState() => _ProvidedSpaceshipComponentsTableViewWidgetState();
+}
+
+class _ProvidedSpaceshipComponentsTableViewWidgetState extends State<ProvidedSpaceshipComponentsTableViewWidget> {
+  @override
+  Widget build(BuildContext context) {
+    return ChangeNotifierProvider<SpaceshipComponentsListViewModel>(
+        create: (BuildContext context) { return SpaceshipComponentsListViewModel(); },
+        child: SpaceshipComponentsListViewWidget()
+    );
+  }
+}
+
+/// ProvidedSpaceshipComponentsTableViewWidget
 class SpaceshipComponentsListViewWidget extends StatefulWidget {
   @override
   _SpaceshipComponentsListViewWidgetState createState() =>
@@ -13,11 +31,13 @@ class SpaceshipComponentsListViewWidget extends StatefulWidget {
 class _SpaceshipComponentsListViewWidgetState
     extends State<SpaceshipComponentsListViewWidget> {
 
-  final _smallBorderRadius = BorderRadius.circular(GeneralConstants.smallBorderRadius);
+  // Private Properties
   SpaceshipComponentsListViewModelInterface _viewModel;
+
+  final _smallBorderRadius = BorderRadius.circular(GeneralConstants.smallBorderRadius);
   final _textFieldController = TextEditingController();
 
-  // Build  UI elements
+  // Private Methods
   
   TextField _buildDataInputTextField() {
     return TextField(
@@ -45,6 +65,7 @@ class _SpaceshipComponentsListViewWidgetState
         ),
         onPressed: () {
           _viewModel.addSpaceshipComponentWithName(_textFieldController.text);
+          _textFieldController.clear();
         },
       ),
     ));
@@ -125,6 +146,7 @@ class _SpaceshipComponentsListViewWidgetState
     super.dispose();
     _textFieldController.dispose();
   }
+
   // Build
 
   @override

@@ -85,7 +85,7 @@ class _RepairStationsContentWidgetState
         title: Text(
           RepairStationsStringCatalog.repairStationsWidgetTitle,
           style: TextStyle(
-            color: AppColors.titleFontColor,
+            color: AppColors.titleColor,
           ),
         ),
         actions: <Widget>[_childPopup()],

@@ -9,6 +9,16 @@ class MainStringCatalog {
 /// String Catalog used for SpaceshipComponents Widget
 class SpaceshipComponentsStringCatalog {
   static final String componentsWidgetTitle = 'Spaceship Components';
+  static final String step1 = "Add Spaceship Components";
+  static final String step1Instructions = "Add list of Spaceship Components";
+  static final String componentSuccestion = "Spaceship Component Name";
+  static final String step2 = "Select Repair Date";
+  static final String step2Instructions = "Select Date for fixing your spaceship";
+  static final String addComponent = "Add";
+  static final String textFieldHint = "E.g Fusion Reactor";
+  static final String errorText = "Field cannot be empty";
+  static final String emptyDate = "No Date Selected";
+  static final String changeDateButton = "Change";
 }
 
 /// String catalog used for RepairStations Widget

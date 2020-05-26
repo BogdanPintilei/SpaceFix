@@ -10,7 +10,6 @@ class SpaceshipComponentsStringCatalog {
   static final String componentsWidgetTitle = 'Spaceship Components';
   static final String step1 = "Add Spaceship Components";
   static final String step1Instructions = "Add list of Spaceship Components";
-  static final String componentSuccestion = "Spaceship Component Name";
   static final String step2 = "Select Repair Date";
   static final String step2Instructions =
       "Select Date for fixing your spaceship";

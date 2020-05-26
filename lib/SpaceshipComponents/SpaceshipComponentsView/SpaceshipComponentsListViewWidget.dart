@@ -65,6 +65,7 @@ class _SpaceshipComponentsListViewWidgetState
         ),
         onPressed: () {
           _viewModel.addSpaceshipComponentWithName(_textFieldController.text);
+          _textFieldController.clear();
         },
       ),
     ));
